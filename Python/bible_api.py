@@ -53,7 +53,18 @@ def get_verse(key, dam_id, book_id, chapter_id, verse_start, verse_end):
 def search_group(key, dam_id, query):
     # Searches the Bible based on a given query.
     # Returns total results, results per book and the first result in every book.
+    # '+' can be used for AND, '|' can be used for OR in queries.
     response = requests.get('https://dbt.io/text/searchgroup?key=' +
                             key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
+
+    return response
+
+
+def search(key, dam_id, query):
+    # Searches the Bible based on a given query.
+    # Returns total results and each individual verse containing a result.
+    # '+' can be used for AND, '|' can be used for OR in queries.
+    response = response = requests.get('https://dbt.io/text/search?key=' +
+                                       key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
 
     return response
