@@ -50,10 +50,3 @@ def commentary_url(url):
     text, references = get_commentary(response)
 
     return text, references
-
-
-tekst, linkjes = commentary_parameters(
-    'matthew-henry-complete', 'exodus', '20')
-print(tekst)
-for link in linkjes:
-    print(link)
