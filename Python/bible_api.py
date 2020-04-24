@@ -9,7 +9,7 @@ def dam_id(key, language_code):
 
     translations = []
 
-    # Ranges over the response and appends each translation to the list formatted as a dictionary.
+    # Ranges over the response and appends each translation to the list 'translation' formatted as a dictionary.
     for version in response:
         translations.append(
             {'Translation Name': version['volume_name'], 'DAM_ID': version['dam_id'], 'Testament': version['collection_code']})
@@ -38,7 +38,7 @@ def language_listing(key, language_name):
 
 
 def book_listing(key, dam_id):
-    # Retrieves a JSON-formatted list of Bible books based on a given language code.
+    # Retrieves a JSON-formatted list of Bible books based on a given DAM_ID.
     response = requests.get(
         'https://dbt.io/library/book?key=' + key + '&dam_id=' + dam_id + '&v=2').json()
 
