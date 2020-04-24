@@ -2,31 +2,12 @@ import requests
 import json
 
 
-def dam_id(key, language_code):
-    # Retrieves a list of Bible translations available for a given language based on a given language code.
-    response = requests.get('https://dbt.io/library/volume?key=' +
-                            key + '&language_code=' + language_code + '&v=2').json()
+def dam_id(language_code, version_code, collection, drama_type, media_type):
+    # Generates a DAM ID to be used in requesting the Bible API.
+    # The parameters for this function can be found by searching on https://www.digitalbibleplatform.com/bibles/
+    dam_id = language_code + version_code + collection + drama_type + media_type
 
-    # Creates a list to store dictionaries containing the names and DAM_IDs of retrieved Bible translations
-    translations = []
-
-    # Ranges over the response and stores the name of the version (volume_name) and its corresponding DAM_ID in a list of dictionaries.
-    for version in response:
-        translations.append(
-            {'Version name': version['volume_name'], 'DAM_ID': version['dam_id']})
-
-    # Returns a list of dictionaries
-    return translations
-
-
-def version_listing(key, language_code):
-    # Retrieves a list of all Bible translations for a given language based on a language code.
-    # The list contains general information for each translation in JSON format.
-    response = requests.get('https://dbt.io/library/volume?key=' +
-                            key + '&language_code=' + language_code + '&v=2').json()
-
-    # Returns a JSON object.
-    return response
+    return dam_id
 
 
 def language_listing(key, language_name):
@@ -34,7 +15,6 @@ def language_listing(key, language_name):
     response = requests.get(
         'https://dbt.io/library/language?key=' + key + '&name=' + language_name + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -43,7 +23,6 @@ def book_listing(key, dam_id):
     response = requests.get(
         'https://dbt.io/library/book?key=' + key + '&dam_id=' + dam_id + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -52,7 +31,6 @@ def get_book(key, dam_id, book_id):
     response = requests.get('https://dbt.io/text/verse?key=' + key + '&dam_id=' +
                             dam_id + '&book_id=' + book_id + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -61,7 +39,6 @@ def get_chapter(key, dam_id, book_id, chapter_id):
     response = requests.get('https://dbt.io/text/verse?key=' + key + '&dam_id=' +
                             dam_id + '&book_id=' + book_id + '&chapter_id=' + chapter_id + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -70,7 +47,6 @@ def get_verse(key, dam_id, book_id, chapter_id, verse_start, verse_end):
     response = requests.get(
         'https://dbt.io/text/verse?key=' + key + '&dam_id=' + dam_id + '&book_id=' + book_id + '&chapter_id=' + chapter_id + '&verse_start=' + verse_start + '&verse_end=' + verse_end + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -81,7 +57,6 @@ def search_group(key, dam_id, query):
     response = requests.get('https://dbt.io/text/searchgroup?key=' +
                             key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
 
-    # Returns a JSON object.
     return response
 
 
@@ -92,5 +67,4 @@ def search(key, dam_id, query):
     response = response = requests.get('https://dbt.io/text/search?key=' +
                                        key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
 
-    # Returns a JSON object.
     return response
