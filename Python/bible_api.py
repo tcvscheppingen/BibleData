@@ -2,12 +2,19 @@ import requests
 import json
 
 
-def dam_id(language_code, version_code, collection, drama_type, media_type):
-    # Generates a DAM ID to be used in requesting the Bible API.
-    # The parameters for this function can be found by searching on https://www.digitalbibleplatform.com/bibles/
-    dam_id = language_code + version_code + collection + drama_type + media_type
+def dam_id(key, language_code):
+    # Retrieves a list of Bible translations with their DAM_ID and collection_code (testament) in a list of dictionaries.
+    response = requests.get('https://dbt.io/library/volume?key=' +
+                            key + '&language_code=' + language_code + '&v=2').json()
 
-    return dam_id
+    translations = []
+
+    for version in response:
+        translations.append(
+            {'Translation Name': version['volume_name'], 'DAM_ID': version['dam_id'], 'Testament': version['collection_code']})
+
+    # Returns a list of dictionaries
+    return translations
 
 
 def language_listing(key, language_name):
