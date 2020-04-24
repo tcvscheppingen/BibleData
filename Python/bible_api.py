@@ -3,7 +3,7 @@ import json
 
 
 def dam_id(key, language_code):
-    # Retrieves a list of Bible translations with their DAM_ID and collection_code (testament) in a list of dictionaries.
+    # Retrieves a list of Bible translations for a given language with their DAM_ID and collection_code (testament) in a list of dictionaries.
     response = requests.get('https://dbt.io/library/volume?key=' +
                             key + '&language_code=' + language_code + '&v=2').json()
 
@@ -15,6 +15,16 @@ def dam_id(key, language_code):
 
     # Returns a list of dictionaries
     return translations
+
+
+def version_listing(key, language_code):
+    # Retrieves a list of Bible translations for a given language.
+    # The list contains information such as: Collection_code, Language_code, DAM_ID among others.
+    response = requests.get('https://dbt.io/library/volume?key=' +
+                            key + '&language_code=' + language_code + '&v=2').json()
+
+    # Returns a JSON object
+    return response
 
 
 def language_listing(key, language_name):
