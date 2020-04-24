@@ -9,6 +9,7 @@ def dam_id(key, language_code):
 
     translations = []
 
+    # Ranges over the response and appends each translation to the list formatted as a dictionary.
     for version in response:
         translations.append(
             {'Translation Name': version['volume_name'], 'DAM_ID': version['dam_id'], 'Testament': version['collection_code']})
@@ -32,6 +33,7 @@ def language_listing(key, language_name):
     response = requests.get(
         'https://dbt.io/library/language?key=' + key + '&name=' + language_name + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -40,6 +42,7 @@ def book_listing(key, dam_id):
     response = requests.get(
         'https://dbt.io/library/book?key=' + key + '&dam_id=' + dam_id + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -48,6 +51,7 @@ def get_book(key, dam_id, book_id):
     response = requests.get('https://dbt.io/text/verse?key=' + key + '&dam_id=' +
                             dam_id + '&book_id=' + book_id + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -56,6 +60,7 @@ def get_chapter(key, dam_id, book_id, chapter_id):
     response = requests.get('https://dbt.io/text/verse?key=' + key + '&dam_id=' +
                             dam_id + '&book_id=' + book_id + '&chapter_id=' + chapter_id + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -64,6 +69,7 @@ def get_verse(key, dam_id, book_id, chapter_id, verse_start, verse_end):
     response = requests.get(
         'https://dbt.io/text/verse?key=' + key + '&dam_id=' + dam_id + '&book_id=' + book_id + '&chapter_id=' + chapter_id + '&verse_start=' + verse_start + '&verse_end=' + verse_end + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -74,6 +80,7 @@ def search_group(key, dam_id, query):
     response = requests.get('https://dbt.io/text/searchgroup?key=' +
                             key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
 
+    # Returns a JSON object
     return response
 
 
@@ -84,4 +91,5 @@ def search(key, dam_id, query):
     response = response = requests.get('https://dbt.io/text/search?key=' +
                                        key + '&dam_id=' + dam_id + '&query=' + query + '&v=2').json()
 
+    # Returns a JSON object
     return response
